@@ -8,9 +8,7 @@ A girly, modern web application that uses AI to generate personalized lip combin
 ![Flask](https://img.shields.io/badge/Flask-3.0-red)
 ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-Latest-38B2AC)
 
-## 🌸 Live Demo
-
-🌐 **Access the application:** [http://localhost:8000](http://localhost:8000)
+## 🌸
 
 ## 🌸 Features
 
