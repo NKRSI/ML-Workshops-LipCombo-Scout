@@ -50,7 +50,7 @@ python app.py
 ```
 
 4. **Open in browser:**
-Open [http://localhost:8000](http://localhost:8000) to see LipScout in action.
+Open to see LipScout in action.
 
 ## 📁 Project Structure
 
@@ -155,7 +155,7 @@ Searches through MCP product networks with filters (category, color, price range
 ```bash
 python app.py
 ```
-Runs on http://localhost:8000
+Runs on http://localhost
 
 ### Production with Gunicorn
 ```bash
