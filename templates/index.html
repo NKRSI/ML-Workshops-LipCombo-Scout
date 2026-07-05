@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LipScout AI - Your Perfect Lip Combo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #db2777 0%, #be185d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(219, 39, 119, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #db2777 0%, #be185d 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(219, 39, 119, 0.3);
+        }
+        
+        .product-card {
+            border-left: 4px solid #db2777;
+        }
+        
+        input[type="range"] {
+            accent-color: #db2777;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="min-h-screen py-8 px-4">
+        <!-- Loading State -->
+        <div id="loading" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 z-50">
+            <div class="glass-morphism p-8 rounded-2xl">
+                <div class="animate-spin w-8 h-8 border-4 border-pink-200 border-t-pink-600 rounded-full mx-auto mb-4"></div>
+                <p class="text-pink-700 font-semibold">Generating your perfect look...</p>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-6xl font-bold gradient-text mb-4">LipScout AI</h1>
+            <p class="text-2xl text-pink-700 mb-2">✨ Find Your Perfect Lip Combo</p>
+            <p class="text-pink-600">AI-powered lip combinations with real product recommendations 💄</p>
+        </div>
+
+        <!-- Main Container -->
+        <div class="max-w-6xl mx-auto">
+            <!-- Form Section -->
+            <div id="form-section" class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Form Card -->
+                <div class="glass-morphism rounded-3xl p-8 hover-lift">
+                    <h2 class="text-3xl font-bold text-pink-700 mb-6">Create Your Look</h2>
+                    <form id="combo-form" class="space-y-5">
+                        <!-- Occasion -->
+                        <div>
+                            <label class="block text-pink-700 font-semibold mb-2">🎯 Occasion</label>
+                            <select name="occasion" required class="w-full p-3 border-2 border-pink-200 rounded-xl focus:outline-none focus:border-pink-600 bg-white text-pink-900">
+                                <option value="">Select occasion...</option>
+                                <option value="school">School</option>
+                                <option value="date">Date Night</option>
+                                <option value="wedding">Wedding</option>
+                                <option value="party">Party</option>
+                                <option value="everyday">Everyday</option>
+                            </select>
+                        </div>
+
+                        <!-- Finish -->
+                        <div>
+                            <label class="block text-pink-700 font-semibold mb-2">✨ Finish</label>
+                            <select name="finish" required class="w-full p-3 border-2 border-pink-200 rounded-xl focus:outline-none focus:border-pink-600 bg-white text-pink-900">
+                                <option value="">Select finish...</option>
+                                <option value="matte">Matte</option>
+                                <option value="satin">Satin</option>
+                                <option value="glossy">Glossy</option>
+                                <option value="shimmer">Shimmer</option>
+                            </select>
+                        </div>
+
+                        <!-- Style -->
+                        <div>
+                            <label class="block text-pink-700 font-semibold mb-2">💅 Style</label>
+                            <select name="style" required class="w-full p-3 border-2 border-pink-200 rounded-xl focus:outline-none focus:border-pink-600 bg-white text-pink-900">
+                                <option value="">Select style...</option>
+                                <option value="clean girl">Clean Girl</option>
+                                <option value="soft girl">Soft Girl</option>
+                                <option value="glam">Glam</option>
+                                <option value="natural">Natural</option>
+                            </select>
+                        </div>
+
+                        <!-- Color -->
+                        <div>
+                            <label class="block text-pink-700 font-semibold mb-2">🎨 Color</label>
+                            <select name="color" required class="w-full p-3 border-2 border-pink-200 rounded-xl focus:outline-none focus:border-pink-600 bg-white text-pink-900">
+                                <option value="">Select color...</option>
+                                <option value="nude">Nude</option>
+                                <option value="pink">Pink</option>
+                                <option value="brown">Brown</option>
+                                <option value="red">Red</option>
+                                <option value="berry">Berry</option>
+                            </select>
+                        </div>
+
+                        <!-- Budget -->
+                        <div>
+                            <label class="block text-pink-700 font-semibold mb-2">💰 Budget (PLN)</label>
+                            <input type="range" name="budget" min="20" max="150" value="75" class="w-full h-3 rounded-lg">
+                            <div class="flex justify-between text-sm text-pink-600 mt-2">
+                                <span>20 PLN</span>
+                                <span id="budget-display" class="font-bold text-pink-700">75 PLN</span>
+                                <span>150 PLN</span>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full btn-primary text-white font-bold py-4 px-6 rounded-xl mt-8 text-lg hover:shadow-lg">
+                            💄 Generate Combo
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Info Card -->
+                <div class="glass-morphism rounded-3xl p-8 hover-lift">
+                    <h3 class="text-2xl font-bold text-pink-700 mb-4">🌸 How It Works</h3>
+                    <div class="space-y-4 text-pink-700">
+                        <div class="flex gap-3">
+                            <span class="text-2xl">1️⃣</span>
+                            <div>
+                                <h4 class="font-bold">Fill Your Preferences</h4>
+                                <p class="text-sm text-pink-600">Tell us about the occasion and your style</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <span class="text-2xl">2️⃣</span>
+                            <div>
+                                <h4 class="font-bold">AI Creates Your Look</h4>
+                                <p class="text-sm text-pink-600">Get a personalized lip combo name and description</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <span class="text-2xl">3️⃣</span>
+                            <div>
+                                <h4 class="font-bold">Real Products & Prices</h4>
+                                <p class="text-sm text-pink-600">Find actual lip products from real stores</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <span class="text-2xl">4️⃣</span>
+                            <div>
+                                <h4 class="font-bold">Save & Share</h4>
+                                <p class="text-sm text-pink-600">Save your favorite combos for later</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="results-section" class="hidden">
+                <!-- Combo Name & Description -->
+                <div class="glass-morphism rounded-3xl p-10 mb-8 text-center hover-lift">
+                    <h2 id="combo-name" class="text-4xl font-bold gradient-text mb-4">Your Perfect Look</h2>
+                    <p id="combo-description" class="text-xl text-pink-700 mb-6"></p>
+                    <div class="flex gap-4 justify-center flex-wrap">
+                        <span id="occasion-tag" class="bg-pink-100 text-pink-700 px-4 py-2 rounded-full font-semibold"></span>
+                        <span id="finish-tag" class="bg-pink-100 text-pink-700 px-4 py-2 rounded-full font-semibold"></span>
+                        <span id="style-tag" class="bg-pink-100 text-pink-700 px-4 py-2 rounded-full font-semibold"></span>
+                        <span id="color-tag" class="bg-pink-100 text-pink-700 px-4 py-2 rounded-full font-semibold"></span>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <!-- Lip Liner -->
+                    <div class="glass-morphism rounded-2xl p-6 product-card hover-lift">
+                        <div class="flex items-center mb-4">
+                            <span class="text-4xl mr-3">💋</span>
+                            <h3 class="text-xl font-bold text-pink-700">Lip Liner</h3>
+                        </div>
+                        <div id="liner-content" class="space-y-3">
+                            <p class="text-pink-900 font-semibold"><span id="liner-brand"></span> - <span id="liner-name"></span></p>
+                            <p class="text-pink-700"><strong>Color:</strong> <span id="liner-color"></span></p>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-2xl font-bold text-pink-600"><span id="liner-price"></span> PLN</span>
+                                <a id="liner-link" href="#" target="_blank" class="text-pink-500 hover:text-pink-700 font-semibold underline">
+                                    Shop →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lipstick -->
+                    <div class="glass-morphism rounded-2xl p-6 product-card hover-lift">
+                        <div class="flex items-center mb-4">
+                            <span class="text-4xl mr-3">💄</span>
+                            <h3 class="text-xl font-bold text-pink-700">Lipstick</h3>
+                        </div>
+                        <div id="lipstick-content" class="space-y-3">
+                            <p class="text-pink-900 font-semibold"><span id="lipstick-brand"></span> - <span id="lipstick-name"></span></p>
+                            <p class="text-pink-700"><strong>Color:</strong> <span id="lipstick-color"></span></p>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-2xl font-bold text-pink-600"><span id="lipstick-price"></span> PLN</span>
+                                <a id="lipstick-link" href="#" target="_blank" class="text-pink-500 hover:text-pink-700 font-semibold underline">
+                                    Shop →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lip Gloss -->
+                    <div class="glass-morphism rounded-2xl p-6 product-card hover-lift">
+                        <div class="flex items-center mb-4">
+                            <span class="text-4xl mr-3">✨</span>
+                            <h3 class="text-xl font-bold text-pink-700">Lip Gloss</h3>
+                        </div>
+                        <div id="gloss-content" class="space-y-3">
+                            <p class="text-pink-900 font-semibold"><span id="gloss-brand"></span> - <span id="gloss-name"></span></p>
+                            <p class="text-pink-700"><strong>Color:</strong> <span id="gloss-color"></span></p>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-2xl font-bold text-pink-600"><span id="gloss-price"></span> PLN</span>
+                                <a id="gloss-link" href="#" target="_blank" class="text-pink-500 hover:text-pink-700 font-semibold underline">
+                                    Shop →
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Total Price & Actions -->
+                <div class="glass-morphism rounded-3xl p-8 mb-8 hover-lift">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-2xl font-bold text-pink-700">💰 Total Price</h3>
+                        <span id="total-price" class="text-4xl font-bold gradient-text"></span>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <button onclick="findDupes()" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-bold py-3 px-6 rounded-xl transition">
+                            🔍 Find Cheaper Dupes
+                        </button>
+                        <button onclick="saveLook()" class="bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-xl transition">
+                            💖 Save This Look
+                        </button>
+                        <button onclick="shareLook()" class="bg-pink-200 hover:bg-pink-300 text-pink-700 font-bold py-3 px-6 rounded-xl transition">
+                            📤 Share with Friends
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Back Button -->
+                <div class="text-center mb-4">
+                    <button onclick="backToForm()" class="text-pink-600 hover:text-pink-800 font-bold text-lg">
+                        ← Create Another Look
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update budget display
+        document.querySelector('input[name="budget"]').addEventListener('input', (e) => {
+            document.getElementById('budget-display').textContent = e.target.value + ' PLN';
+        });
+
+        // Form submission
+        document.getElementById('combo-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            
+            showLoading(true);
+            
+            try {
+                const response = await fetch('/api/generate-combo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const combo = await response.json();
+                displayResults(combo);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error generating combo. Please try again.');
+            } finally {
+                showLoading(false);
+            }
+        });
+
+        function displayResults(combo) {
+            // Update combo info
+            document.getElementById('combo-name').textContent = combo.name;
+            document.getElementById('combo-description').textContent = combo.description;
+            
+            // Update tags
+            document.getElementById('occasion-tag').textContent = '🎯 ' + combo.occasion.charAt(0).toUpperCase() + combo.occasion.slice(1);
+            document.getElementById('finish-tag').textContent = '✨ ' + combo.finish.charAt(0).toUpperCase() + combo.finish.slice(1);
+            document.getElementById('style-tag').textContent = '💅 ' + combo.style;
+            document.getElementById('color-tag').textContent = '🎨 ' + combo.color.charAt(0).toUpperCase() + combo.color.slice(1);
+            
+            // Update products
+            const liner = combo.products.liner;
+            document.getElementById('liner-brand').textContent = liner.brand;
+            document.getElementById('liner-name').textContent = liner.name;
+            document.getElementById('liner-color').textContent = liner.color;
+            document.getElementById('liner-price').textContent = liner.price;
+            document.getElementById('liner-link').href = liner.url;
+            
+            const lipstick = combo.products.lipstick;
+            document.getElementById('lipstick-brand').textContent = lipstick.brand;
+            document.getElementById('lipstick-name').textContent = lipstick.name;
+            document.getElementById('lipstick-color').textContent = lipstick.color;
+            document.getElementById('lipstick-price').textContent = lipstick.price;
+            document.getElementById('lipstick-link').href = lipstick.url;
+            
+            const gloss = combo.products.gloss;
+            document.getElementById('gloss-brand').textContent = gloss.brand;
+            document.getElementById('gloss-name').textContent = gloss.name;
+            document.getElementById('gloss-color').textContent = gloss.color;
+            document.getElementById('gloss-price').textContent = gloss.price;
+            document.getElementById('gloss-link').href = gloss.url;
+            
+            document.getElementById('total-price').textContent = combo.total_price + ' PLN';
+            
+            // Show results
+            document.getElementById('form-section').classList.add('hidden');
+            document.getElementById('results-section').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function backToForm() {
+            document.getElementById('results-section').classList.add('hidden');
+            document.getElementById('form-section').classList.remove('hidden');
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').classList.toggle('hidden', !show);
+        }
+
+        function findDupes() {
+            alert('🔍 Finding cheaper alternatives... (Demo feature)');
+        }
+
+        function saveLook() {
+            alert('💖 Look saved! Check your profile.');
+        }
+
+        function shareLook() {
+            alert('📤 Sharing this look with friends...');
+        }
+    </script>
+</body>
+</html>
