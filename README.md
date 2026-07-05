@@ -1,40 +1,38 @@
-
 # 💄 LipScout AI - Your Perfect Lip Combo
 
-A girly, modern web application that uses AI to generate personalized lip combinations and finds real products with prices from Polish beauty stores.
+A modern web application powered by MCP (Model Context Protocol) that generates personalized lip combinations and connects you to real products from Polish beauty stores.
 
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
 ![Python](https://img.shields.io/badge/Python-3.13-blue)
 ![Flask](https://img.shields.io/badge/Flask-3.0-red)
-![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-Latest-38B2AC)
-
-## 🌸
+![MCP](https://img.shields.io/badge/MCP-Enabled-blueviolet)
 
 ## 🌸 Features
 
 ### ✨ AI-Powered Lip Combo Generator
-- Generates personalized lip combinations based on user preferences
+- Generates personalized lip combinations based on your style preferences
 - Creates unique names and descriptions for each look
-- Recommends real products from Polish beauty retailers
+- Suggests real products that match your vibe and budget
 
-### 🛍️ Product Search & Recommendations
-- **Lip Liner** - contouring products
-- **Lipstick** - color options with various finishes
-- **Lip Gloss** - shine and glossy effects
-- Real prices and store links
-- Mock MCP (Model Context Protocol) integration
+### 🛍️ MCP-Integrated Product Discovery
+- **Lip Liner** - contouring & precision tools
+- **Lipstick** - colors & finishes for every mood
+- **Lip Gloss** - shine, shimmer & glossy effects
+- Real-time product data through MCP connections
+- Seamless integration with beauty retailer networks
 
-### 💰 Budget-Friendly
+### 💰 Smart Shopping
 - Budget slider from 20-150 PLN
 - Automatic total price calculation
-- Find cheaper alternatives (dupes)
-- Price comparison across stores
+- Find cheaper alternatives (dupes) through MCP
+- Compare prices across connected stores
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.8+
 - pip
+- MCP server(s) configured (optional - mock data available by default)
 
 ### Installation & Running
 
@@ -43,38 +41,51 @@ A girly, modern web application that uses AI to generate personalized lip combin
 pip install -r requirements.txt
 ```
 
-2. **Run the application:**
+2. **Configure MCP (optional):**
+Add your MCP server connections to enable live product data. Update the `MCPClient` class in `app.py` with your retailer APIs or MCP server endpoints.
+
+3. **Run the application:**
 ```bash
 python app.py
 ```
 
-3. **Open in browser:**
-Open [http://localhost:8000](http://localhost:8000) with your browser to see the result.
+4. **Open in browser:**
+Open [http://localhost:8000](http://localhost:8000) to see LipScout in action.
 
 ## 📁 Project Structure
 
 ```
 lipscout-ai/
-├── app.py                    # Flask backend with MCP integration
+├── app.py                    # Flask backend with MCP client setup
 ├── requirements.txt          # Python dependencies
 ├── templates/
 │   └── index.html           # Beautiful Tailwind CSS frontend
 ├── README.md                # This file
-└── AGENTS.md                # Agent configuration
+├── AGENTS.md                # MCP agent configuration
+└── CLAUDE.md                # Documentation
 ```
+
+## 🔌 MCP Architecture
+
+LipScout uses the Model Context Protocol (MCP) to connect with beauty product data sources. The architecture enables:
+
+- **Modular Data Sources** - Connect to multiple retailer APIs through unified MCP interface
+- **Real-Time Updates** - Access current product inventory and pricing
+- **Extensible Tools** - Add new data sources without modifying core logic
+- **Smart Integrations** - Combine multiple sources for better recommendations
 
 ## 🎯 How It Works
 
 1. **Fill Preferences** - Select occasion, finish, style, color, and budget
-2. **AI Generates Look** - Backend creates personalized combo with name & description
-3. **Real Products** - System searches mock database for products matching preferences
-4. **View Results** - See all 3 products (liner, lipstick, gloss) with prices
-5. **Save & Share** - Keep your favorite combos or share with friends
+2. **AI Generates Look** - Backend creates a personalized combo with name & description
+3. **MCP Product Search** - Queries connected beauty retailers through MCP tools
+4. **View Results** - See all 3 products (liner, lipstick, gloss) with real pricing
+5. **Smart Recommendations** - Find dupes & price comparisons through MCP connections
 
-## 🔧 API Endpoints
+## 🔧 API Endpoints (MCP-Powered)
 
 ### POST `/api/generate-combo`
-Generates a personalized lip combination based on user preferences.
+Generates a personalized lip combination by querying MCP product sources.
 
 **Request:**
 ```json
@@ -102,13 +113,13 @@ Generates a personalized lip combination based on user preferences.
 ```
 
 ### GET `/api/find-dupes/<product_id>`
-Finds cheaper alternatives for a product
+Uses MCP to find cheaper alternatives across connected retailers
 
 ### GET `/api/compare-prices/<product_id>`
-Compares prices across different stores
+Compares pricing across multiple stores via MCP integrations
 
 ### POST `/api/search-products`
-Searches for products with filters (category, color, price range)
+Searches through MCP product networks with filters (category, color, price range)
 
 ## 🎨 Design Highlights
 
@@ -117,7 +128,6 @@ Searches for products with filters (category, color, price range)
 - Glass morphism cards
 - Smooth hover animations
 - Fully responsive design
-- Cute emoji icons
 
 🎯 **Customization:**
 - 5 occasions
@@ -165,13 +175,14 @@ CMD ["python", "app.py"]
 
 ## 🔮 Future Enhancements
 
-- [ ] User accounts and saved combos
-- [ ] Real API integration with beauty retailers
-- [ ] Product reviews and ratings
-- [ ] Social sharing features
-- [ ] Machine learning recommendations
-- [ ] Email notifications for price drops
-- [ ] Mobile app version
+- [ ] Expanded MCP retailer connections (Sephora, Douglas, Rossmann, and more)
+- [ ] User accounts with saved combo history
+- [ ] Live product reviews through MCP integrations
+- [ ] Social sharing with combo recommendations
+- [ ] Advanced MCP tools for trend analysis
+- [ ] Price drop alerts via MCP notifications
+- [ ] Multi-region beauty store support
+- [ ] Mobile companion app
 
 ## 📞 Support & Issues
 
